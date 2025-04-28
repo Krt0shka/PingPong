@@ -1,11 +1,16 @@
+import random
 import pygame
 import config
+
+pygame.init()
 
 screen = pygame.display.set_mode((config.WEIGHT, config.HEIGHT))
 pygame.display.set_caption("Ping Pong")
 pygame.display.set_icon(pygame.image.load("files/images/icon.png"))
 
 screen.fill(config.BACKGROUND_COLOR, (0, 0, 700, 500))
+
+font = pygame.font.SysFont("Arial", 30)
 
 
 class GameSprite(pygame.sprite.Sprite):
@@ -35,14 +40,40 @@ class Player(GameSprite):
         if keys[pygame.K_DOWN] and self.rect.y < 500 - 96:
             self.rect.y += self.speed
 
+class Ball(GameSprite):
+    def __init__(self, img: pygame.Surface, speed, x, y):
+        super().__init__(img, speed, x, y)
+        self.direction_x = random.choice([-1, 1])
+        self.direction_y = random.choice([-1, 1])
+
+    def update(self):
+        self.rect.x += self.speed * self.direction_x
+        self.rect.y += self.speed * self.direction_y
+        if self.rect.y <= 1 or self.rect.y >= config.HEIGHT - 61:
+            self.direction_y *= -1
+
+class Counter:
+    def __init__(self):
+        self.score1 = 0
+        self.score2 = 0
+        self.color = (0, 0, 0)
+        self.text = font.render(f"{self.score1} : {self.score2}", True, self.color)
+    def update(self):
+        self.text = font.render(f"{self.score1} : {self.score2}", True, self.color)
+        screen.blit(self.text, (config.WEIGHT // 2 - 50, 10))
+
+
 player1 = Player(pygame.image.load("files/images/player1.png"), 5, 10, 200)
 player2 = Player(pygame.image.load("files/images/player2.png"), 5, config.WEIGHT-40, 200)
-
+ball = Ball(pygame.image.load("files/images/ball.png"), 5, config.WEIGHT//2, config.HEIGHT//2)
+counter = Counter()
 
 clock = pygame.time.Clock()
 game = True
+pause = False
 while game:
     screen.fill(config.BACKGROUND_COLOR, (0, 0, 700, 500))
+    counter.update()
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -53,6 +84,25 @@ while game:
 
     player2.reset()
     player2.update2()
+
+    if pygame.sprite.collide_rect(ball, player1) or pygame.sprite.collide_rect(ball, player2):
+        ball.direction_x *= -1
+
+    if ball.rect.x < 10:
+        counter.score2 += 1
+        ball.rect.x = config.WEIGHT // 2
+        ball.rect.y = config.HEIGHT // 2
+        ball.direction_x *= -1
+        ball.direction_y *= random.choice([-1, 1])
+    if ball.rect.x > config.WEIGHT - 50:
+        counter.score1 += 1
+        ball.rect.x = config.WEIGHT // 2
+        ball.rect.y = config.HEIGHT // 2
+        ball.direction_x *= -1
+        ball.direction_y *= random.choice([-1, 1])
+
+    ball.reset()
+    ball.update()
 
     clock.tick(config.FPS)
     pygame.display.flip()
