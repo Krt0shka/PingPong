@@ -20,6 +20,3 @@ Second player: `↑` and `↓`
 ```commandline
 pip install pygame
 ```
-
-## Last release
-[v1.0.0.zip](output/v1.0.0.zip)
