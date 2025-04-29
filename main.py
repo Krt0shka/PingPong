@@ -8,9 +8,14 @@ screen = pygame.display.set_mode((config.WEIGHT, config.HEIGHT))
 pygame.display.set_caption("Ping Pong")
 pygame.display.set_icon(pygame.image.load("files/images/icon.png"))
 
-screen.fill(config.BACKGROUND_COLOR, (0, 0, 700, 500))
-
 font = pygame.font.SysFont("Arial", 30)
+
+mixer = pygame.mixer
+mixer.init()
+mixer.music.load("files/sounds/music.mp3")
+mixer.music.set_volume(0.1)
+hitSound = mixer.Sound("files/sounds/hit.flac")
+hitSound.set_volume(0.1)
 
 
 class GameSprite(pygame.sprite.Sprite):
@@ -30,14 +35,14 @@ class Player(GameSprite):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_w] and self.rect.y > 1:
             self.rect.y -= self.speed
-        if keys[pygame.K_s] and self.rect.y < 500 - 96:
+        if keys[pygame.K_s] and self.rect.y < 500 - 130:
             self.rect.y += self.speed
 
     def update2(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_UP] and self.rect.y > 1:
             self.rect.y -= self.speed
-        if keys[pygame.K_DOWN] and self.rect.y < 500 - 96:
+        if keys[pygame.K_DOWN] and self.rect.y < 500 - 130:
             self.rect.y += self.speed
 
 class Ball(GameSprite):
@@ -60,7 +65,8 @@ class Counter:
         self.text = font.render(f"{self.score1} : {self.score2}", True, self.color)
     def update(self):
         self.text = font.render(f"{self.score1} : {self.score2}", True, self.color)
-        screen.blit(self.text, (config.WEIGHT // 2 - 50, 10))
+        text_width = self.text.get_width()
+        screen.blit(self.text, ((config.WEIGHT - text_width) // 2, 10))
 
 def start_menu():
 
@@ -70,7 +76,7 @@ def start_menu():
 
     waiting = True
     while waiting:
-        screen.fill(config.BACKGROUND_COLOR)
+        screen.fill("#FFFFFF")
 
         title = font.render("Пинг Понг", True, (0, 0, 0))
         screen.blit(title, (config.WEIGHT // 2 - title.get_width() // 2, 150))
@@ -96,6 +102,7 @@ def start_menu():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if button_rect.collidepoint(event.pos):
                     waiting = False
+    mixer.music.play()
 
 player1 = Player(pygame.image.load("files/images/player1.png"), 5, 10, 200)
 player2 = Player(pygame.image.load("files/images/player2.png"), 5, config.WEIGHT-40, 200)
@@ -130,7 +137,8 @@ while game:
 
     if not pause:
 
-        screen.fill(config.BACKGROUND_COLOR, (0, 0, 700, 500))
+        screen.fill(config.BACKGROUND_COLOR1, (0, 0, config.WEIGHT // 2, config.HEIGHT))
+        screen.fill(config.BACKGROUND_COLOR2, (config.WEIGHT // 2, 0, config.WEIGHT, config.HEIGHT))
         counter.update()
 
         player1.reset()
@@ -141,6 +149,7 @@ while game:
 
         if pygame.sprite.collide_rect(ball, player1) or pygame.sprite.collide_rect(ball, player2):
             ball.direction_x *= -1
+            hitSound.play()
 
         if ball.rect.x < 15:
             counter.score2 += 1
