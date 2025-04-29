@@ -8,7 +8,9 @@ screen = pygame.display.set_mode((config.WEIGHT, config.HEIGHT))
 pygame.display.set_caption("Ping Pong")
 pygame.display.set_icon(pygame.image.load("files/images/icon.png"))
 
+fontT = pygame.font.SysFont("Arial", 40)
 font = pygame.font.SysFont("Arial", 30)
+fontS = pygame.font.SysFont("Arial", 20)
 
 mixer = pygame.mixer
 mixer.init()
@@ -78,10 +80,8 @@ def start_menu():
     while waiting:
         screen.fill("#FFFFFF")
 
-        title = font.render("Пинг Понг", True, (0, 0, 0))
+        title = fontT.render("Пинг Понг", True, (0, 0, 0))
         screen.blit(title, (config.WEIGHT // 2 - title.get_width() // 2, 150))
-
-        mouse_pos = pygame.mouse.get_pos()
 
         pygame.draw.rect(screen, button_color, button_rect)
         button_text = font.render("Старт", True, text_color)
@@ -89,6 +89,12 @@ def start_menu():
             button_rect.centerx - button_text.get_width() // 2,
             button_rect.centery - button_text.get_height() // 2
         ))
+
+        control_p1 = fontS.render("Игрок 1: Вверх - W, вниз - S", True, (0, 0, 0))
+        control_p2 = fontS.render("Игрок 2: Вверх - ↑, вниз - ↓", True, (0, 0, 0))
+
+        screen.blit(control_p1, (5, config.HEIGHT - 60))
+        screen.blit(control_p2, (5, config.HEIGHT - 30))
 
         pygame.display.flip()
 
