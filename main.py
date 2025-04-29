@@ -92,9 +92,11 @@ def start_menu():
 
         control_p1 = fontS.render("Игрок 1: Вверх - W, вниз - S", True, (0, 0, 0))
         control_p2 = fontS.render("Игрок 2: Вверх - ↑, вниз - ↓", True, (0, 0, 0))
-
         screen.blit(control_p1, (5, config.HEIGHT - 60))
         screen.blit(control_p2, (5, config.HEIGHT - 30))
+
+        game_version = fontS.render(f"Версия игры: {config.VERSION}", True, (0, 0, 0))
+        screen.blit(game_version, (config.WEIGHT - game_version.get_width() - 5, config.HEIGHT - 30))
 
         pygame.display.flip()
 
