@@ -1,4 +1,4 @@
-import random
+import random, time
 import pygame
 import config
 
@@ -68,41 +68,59 @@ player2 = Player(pygame.image.load("files/images/player2.png"), 5, config.WEIGHT
 ball = Ball(pygame.image.load("files/images/ball.png"), 5, config.WEIGHT//2, config.HEIGHT//2)
 counter = Counter()
 
-clock = pygame.time.Clock()
 game = True
 pause = False
+
+clock = pygame.time.Clock()
+
+last_pause_time = 0
+
 while game:
-    screen.fill(config.BACKGROUND_COLOR, (0, 0, 700, 500))
-    counter.update()
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             game = False
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_p:
+                curr_time = pygame.time.get_ticks()
+                if curr_time - last_pause_time >= 500 and pause == False:   #на паузу
+                    pause = not pause
+                    last_pause_time = curr_time
+                    pause_text = font.render("ПАУЗА", True, (0, 0, 0))
+                    screen.blit(pause_text, (config.WEIGHT // 2 - 50, config.HEIGHT // 2 - 50))
+                else:                                                       #с паузы
+                    pause = not pause
 
-    player1.reset()
-    player1.update1()
 
-    player2.reset()
-    player2.update2()
+    if not pause:
 
-    if pygame.sprite.collide_rect(ball, player1) or pygame.sprite.collide_rect(ball, player2):
-        ball.direction_x *= -1
+        screen.fill(config.BACKGROUND_COLOR, (0, 0, 700, 500))
+        counter.update()
 
-    if ball.rect.x < 10:
-        counter.score2 += 1
-        ball.rect.x = config.WEIGHT // 2
-        ball.rect.y = config.HEIGHT // 2
-        ball.direction_x *= -1
-        ball.direction_y *= random.choice([-1, 1])
-    if ball.rect.x > config.WEIGHT - 50:
-        counter.score1 += 1
-        ball.rect.x = config.WEIGHT // 2
-        ball.rect.y = config.HEIGHT // 2
-        ball.direction_x *= -1
-        ball.direction_y *= random.choice([-1, 1])
+        player1.reset()
+        player1.update1()
 
-    ball.reset()
-    ball.update()
+        player2.reset()
+        player2.update2()
+
+        if pygame.sprite.collide_rect(ball, player1) or pygame.sprite.collide_rect(ball, player2):
+            ball.direction_x *= -1
+
+        if ball.rect.x < 15:
+            counter.score2 += 1
+            ball.rect.x = config.WEIGHT // 2
+            ball.rect.y = config.HEIGHT // 2
+            ball.direction_x *= -1
+            ball.direction_y *= random.choice([-1, 1])
+        if ball.rect.x > config.WEIGHT - 60:
+            counter.score1 += 1
+            ball.rect.x = config.WEIGHT // 2
+            ball.rect.y = config.HEIGHT // 2
+            ball.direction_x *= -1
+            ball.direction_y *= random.choice([-1, 1])
+
+        ball.reset()
+        ball.update()
 
     clock.tick(config.FPS)
     pygame.display.flip()
