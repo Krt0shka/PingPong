@@ -62,6 +62,40 @@ class Counter:
         self.text = font.render(f"{self.score1} : {self.score2}", True, self.color)
         screen.blit(self.text, (config.WEIGHT // 2 - 50, 10))
 
+def start_menu():
+
+    button_color = (0, 0, 0)
+    text_color = (255, 255, 255)
+    button_rect = pygame.Rect(config.WEIGHT // 2 - 100, 250, 200, 60)
+
+    waiting = True
+    while waiting:
+        screen.fill(config.BACKGROUND_COLOR)
+
+        title = font.render("Пинг Понг", True, (0, 0, 0))
+        screen.blit(title, (config.WEIGHT // 2 - title.get_width() // 2, 150))
+
+        mouse_pos = pygame.mouse.get_pos()
+
+        pygame.draw.rect(screen, button_color, button_rect)
+        button_text = font.render("Старт", True, text_color)
+        screen.blit(button_text, (
+            button_rect.centerx - button_text.get_width() // 2,
+            button_rect.centery - button_text.get_height() // 2
+        ))
+
+        pygame.display.flip()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    waiting = False
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if button_rect.collidepoint(event.pos):
+                    waiting = False
 
 player1 = Player(pygame.image.load("files/images/player1.png"), 5, 10, 200)
 player2 = Player(pygame.image.load("files/images/player2.png"), 5, config.WEIGHT-40, 200)
@@ -74,6 +108,8 @@ pause = False
 clock = pygame.time.Clock()
 
 last_pause_time = 0
+
+start_menu()
 
 while game:
 
