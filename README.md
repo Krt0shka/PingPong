@@ -9,6 +9,10 @@ First player: `W` and `S`
 
 Second player: `↑` and `↓`
 
+In Menu: `Space` - play
+
+In game: `Esc` - back to menu
+
 
 ## Preview
 
