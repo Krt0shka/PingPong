@@ -16,9 +16,9 @@ def game():
     hit_sound = mixer.Sound("files/sounds/hit.flac")
     hit_sound.set_volume(0.1)
 
-    player1 = Player.Player(pygame.image.load("files/images/player1.png"), 5, 10, 200)
-    player2 = Player.Player(pygame.image.load("files/images/player2.png"), 5, config.WEIGHT - 37, 200)
-    ball = Ball.Ball(pygame.image.load("files/images/ball.png"), 5, config.WEIGHT // 2, config.HEIGHT // 2)
+    player1 = Player.Player(pygame.image.load("files/images/player1.png"), config.PLAYERSPEED, 10, 200)
+    player2 = Player.Player(pygame.image.load("files/images/player2.png"), config.PLAYERSPEED, config.WEIGHT - 37, 200)
+    ball = Ball.Ball(pygame.image.load("files/images/ball.png"), config.BALLSPEED, config.WEIGHT // 2, config.HEIGHT // 2)
     counter = Counter.Counter()
 
     in_menu_button = Button.Button(
