@@ -5,16 +5,19 @@ from screens import Menu
 import config
 from main import screen, font, fontS
 
+pygame.init()
+
 def game():
 
     clock = pygame.time.Clock()
 
+    pygame.mixer.init()
     mixer = pygame.mixer
-    mixer.init()
     mixer.music.load("files/sounds/music.mp3")
     mixer.music.set_volume(0.1)
     hit_sound = mixer.Sound("files/sounds/hit.flac")
     hit_sound.set_volume(0.1)
+    mixer.music.play()
 
     player1 = Player.Player(pygame.image.load("files/images/player1.png"), config.PLAYERSPEED, 10, 200)
     player2 = Player.Player(pygame.image.load("files/images/player2.png"), config.PLAYERSPEED, config.WEIGHT - 37, 200)
@@ -35,7 +38,6 @@ def game():
 
     while game:
 
-        mixer.music.play()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -51,15 +53,16 @@ def game():
                     else:  # с паузы
                         pause = not pause
                 elif event.key == pygame.K_ESCAPE:
+                    mixer.music.stop()
                     Menu.start_menu()
                     game = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if in_menu_button.rect.collidepoint(event.pos):
+                    mixer.music.stop()
                     Menu.start_menu()
                     game = False
 
         if not pause:
-
             screen.fill(config.BACKGROUND_COLOR1, (0, 0, config.WEIGHT // 2, config.HEIGHT))
             screen.fill(config.BACKGROUND_COLOR2, (config.WEIGHT // 2, 0, config.WEIGHT, config.HEIGHT))
             counter.update()

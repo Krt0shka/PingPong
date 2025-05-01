@@ -1,3 +1,4 @@
+"""
 import random, time
 import pygame
 import config
@@ -177,3 +178,4 @@ while game:
 
     clock.tick(config.FPS)
     pygame.display.flip()
+"""

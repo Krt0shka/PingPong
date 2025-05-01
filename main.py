@@ -1,5 +1,6 @@
 import pygame
 import config
+import start
 
 pygame.init()
 
@@ -11,4 +12,5 @@ fontT = pygame.font.SysFont("Arial", 40)
 font = pygame.font.SysFont("Arial", 30)
 fontS = pygame.font.SysFont("Arial", 20)
 
-import start
+if __name__ == "__main__":
+    start.start()

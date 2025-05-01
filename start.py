@@ -1,3 +1,4 @@
 from screens import Menu
 
-Menu.start_menu()
+def start():
+    Menu.start_menu()
