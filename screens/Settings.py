@@ -81,7 +81,7 @@ def settings():
         ball_speed2.draw()
         ball_speed3.draw()
 
-        screen.blit(ball_speed_label, (config.WEIGHT // 2 - title.get_width() // 2, 215))
+        screen.blit(player_speed_label, (config.WEIGHT // 2 - title.get_width() // 2, 215))
 
         player_speed1.draw()
         player_speed2.draw()
