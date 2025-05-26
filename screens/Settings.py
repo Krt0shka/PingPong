@@ -12,7 +12,7 @@ def settings():
 
 
     back_button = Button.Button(
-        (60, 60, 60),
+        (0, 0, 0),
         (129, 129, 129),
         config.WEIGHT // 2 - 100, 430, 200, 40,
         "Назад",
@@ -100,50 +100,50 @@ def settings():
 
                 elif ball_speed1.rect.collidepoint(event.pos):
                     config.BALLSPEED = 3
-                    ball_speed1.rect_color = (0, 255, 0)
-                    config.B1C = (0, 255, 0)
-                    ball_speed2.rect_color = (255, 0, 0)
-                    config.B2C = (255, 0, 0)
-                    ball_speed3.rect_color = (255, 0, 0)
-                    config.B3C = (255, 0, 0)
+                    ball_speed1.rect_color = "#66B2FF"
+                    config.B1C = "#66B2FF"
+                    ball_speed2.rect_color = "#0080FF"
+                    config.B2C = "#0080FF"
+                    ball_speed3.rect_color = "#0080FF"
+                    config.B3C = "#0080FF"
                 elif ball_speed2.rect.collidepoint(event.pos):
                     config.BALLSPEED = 5
-                    ball_speed2.rect_color = (0, 255, 0)
-                    config.B2C = (0, 255, 0)
-                    ball_speed1.rect_color = (255, 0, 0)
-                    config.B1C = (255, 0, 0)
-                    ball_speed3.rect_color = (255, 0, 0)
-                    config.B3C = (255, 0, 0)
+                    ball_speed2.rect_color = "#66B2FF"
+                    config.B2C = "#66B2FF"
+                    ball_speed1.rect_color = "#0080FF"
+                    config.B1C = "#0080FF"
+                    ball_speed3.rect_color = "#0080FF"
+                    config.B3C = "#0080FF"
                 elif ball_speed3.rect.collidepoint(event.pos):
                     config.BALLSPEED = 7
-                    ball_speed3.rect_color = (0, 255, 0)
-                    config.B3C = (0, 255, 0)
-                    ball_speed2.rect_color = (255, 0, 0)
-                    config.B2C = (255, 0, 0)
-                    ball_speed1.rect_color = (255, 0, 0)
-                    config.B1C = (255, 0, 0)
+                    ball_speed3.rect_color = "#66B2FF"
+                    config.B3C = "#66B2FF"
+                    ball_speed2.rect_color = "#0080FF"
+                    config.B2C = "#0080FF"
+                    ball_speed1.rect_color = "#0080FF"
+                    config.B1C = "#0080FF"
 
                 elif player_speed1.rect.collidepoint(event.pos):
                     config.PLAYERSPEED = 3
-                    player_speed1.rect_color = (0, 255, 0)
-                    config.P1C = (0, 255, 0)
-                    player_speed2.rect_color = (255, 0, 0)
-                    config.P2C = (255, 0, 0)
-                    player_speed3.rect_color = (255, 0, 0)
-                    config.P3C = (255, 0, 0)
+                    player_speed1.rect_color = "#66B2FF"
+                    config.P1C = "#66B2FF"
+                    player_speed2.rect_color = "#0080FF"
+                    config.P2C = "#0080FF"
+                    player_speed3.rect_color = "#0080FF"
+                    config.P3C = "#0080FF"
                 elif player_speed2.rect.collidepoint(event.pos):
                     config.PLAYERSPEED = 5
-                    player_speed2.rect_color = (0, 255, 0)
-                    config.P2C = (0, 255, 0)
-                    player_speed1.rect_color = (255, 0, 0)
-                    config.P1C = (255, 0, 0)
-                    player_speed3.rect_color = (255, 0, 0)
-                    config.P3C = (255, 0, 0)
+                    player_speed2.rect_color = "#66B2FF"
+                    config.P2C = "#66B2FF"
+                    player_speed1.rect_color = "#0080FF"
+                    config.P1C = "#0080FF"
+                    player_speed3.rect_color = "#0080FF"
+                    config.P3C = "#0080FF"
                 elif player_speed3.rect.collidepoint(event.pos):
                     config.PLAYERSPEED = 7
-                    player_speed3.rect_color = (0, 255, 0)
-                    config.P3C = (0, 255, 0)
-                    player_speed2.rect_color = (255, 0, 0)
-                    config.P2C = (255, 0, 0)
-                    player_speed1.rect_color = (255, 0, 0)
-                    config.P1C = (255, 0, 0)
+                    player_speed3.rect_color = "#66B2FF"
+                    config.P3C = "#66B2FF"
+                    player_speed2.rect_color = "#0080FF"
+                    config.P2C = "#0080FF"
+                    player_speed1.rect_color = "#0080FF"
+                    config.P1C = "#0080FF"

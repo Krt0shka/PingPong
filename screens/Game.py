@@ -1,3 +1,5 @@
+import time
+
 import pygame
 import random
 from classes import Player, Counter, Ball, Button
@@ -75,6 +77,7 @@ def game():
 
             in_menu_button.draw()
 
+
             if pygame.sprite.collide_rect(ball, player1) or pygame.sprite.collide_rect(ball, player2):
                 ball.direction_x *= -1
                 hit_sound.play()
@@ -83,17 +86,26 @@ def game():
                 counter.score2 += 1
                 ball.rect.x = config.WEIGHT // 2
                 ball.rect.y = config.HEIGHT // 2
+                ball.reset()
+                ball.update()
+                time.sleep(0.5)
                 ball.direction_x *= -1
                 ball.direction_y *= random.choice([-1, 1])
             if ball.rect.x > config.WEIGHT - 90:
                 counter.score1 += 1
                 ball.rect.x = config.WEIGHT // 2
                 ball.rect.y = config.HEIGHT // 2
+                ball.reset()
+                ball.update()
+                time.sleep(0.5)
                 ball.direction_x *= -1
                 ball.direction_y *= random.choice([-1, 1])
+
 
             ball.reset()
             ball.update()
 
+
+        pygame.display.update()
         clock.tick(config.FPS)
-        pygame.display.flip()
+
